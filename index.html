@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ilumiluz — Joias Autorais</title>
+  <meta name="description" content="Joias para quem vive com intenção. Design autoral, memória e matéria. Alianças, anéis, colares e amuletos feitos artesanalmente." />
+  <meta name="keywords" content="joias autorais, joias artesanais, ouro 18k, esmeralda, ateliê de joias, São Paulo" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Ilumiluz — Joias Autorais" />
+  <meta property="og:description" content="Joias para quem vive com intenção. Design autoral, memória e matéria." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://ilumiluz.com" />
+  <meta property="og:image" content="images/hero-anel-lirio.png" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ── Reset & Base ── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --color-hero:     #3a2520;
+      --color-cream:    #f2ede8;
+      --color-white:    #ffffff;
+      --color-gold:     #b8a27a;
+      --color-gold-bg:  #c4aa82;
+      --color-wine:     #7a3535;
+      --color-text:     #1c1c1a;
+      --color-muted:    #6b6560;
+      --font-serif:     'Playfair Display', Georgia, serif;
+      --font-sans:      'DM Sans', system-ui, sans-serif;
+      --max-w:          1280px;
+      --transition:     0.35s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      font-weight: 300;
+      color: var(--color-text);
+      background: var(--color-white);
+      overflow-x: hidden;
+    }
+
+    img { display: block; max-width: 100%; }
+    a   { text-decoration: none; color: inherit; }
+
+    /* ── Scroll Animations ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: none;
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── Header ── */
+    header {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 3rem;
+      height: 72px;
+      transition: background var(--transition), backdrop-filter var(--transition), box-shadow var(--transition);
+    }
+
+    header.scrolled {
+      background: rgba(58, 37, 32, 0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      box-shadow: 0 1px 0 rgba(255,255,255,0.08);
+    }
+
+    .logo {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: 1.5rem;
+      letter-spacing: 0.02em;
+      color: var(--color-white);
+    }
+
+    nav { display: flex; gap: 2.5rem; }
+
+    nav a {
+      font-size: 0.875rem;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+      color: rgba(255,255,255,0.85);
+      transition: color var(--transition);
+      position: relative;
+    }
+
+    nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -3px; left: 0;
+      width: 0; height: 1px;
+      background: var(--color-white);
+      transition: width var(--transition);
+    }
+
+    nav a:hover { color: var(--color-white); }
+    nav a:hover::after { width: 100%; }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      cursor: pointer;
+      padding: 4px;
+    }
+    .hamburger span {
+      display: block;
+      width: 24px; height: 1.5px;
+      background: var(--color-white);
+      transition: var(--transition);
+    }
+
+    /* ── Hero ── */
+    #hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      background: var(--color-hero);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 20%;
+      opacity: 0.9;
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 3rem;
+      max-width: 520px;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.7rem;
+      font-weight: 400;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1rem;
+    }
+
+    .hero-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.75rem, 3vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.3;
+      color: var(--color-white);
+      margin-bottom: 1.25rem;
+    }
+
+    .hero-sub {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.8);
+      margin-bottom: 2.5rem;
+    }
+
+    .btn-outline {
+      display: inline-block;
+      padding: 0.75rem 2rem;
+      border: 1px solid rgba(255,255,255,0.6);
+      color: var(--color-white);
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background var(--transition), border-color var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255,255,255,0.12);
+      border-color: var(--color-white);
+    }
+
+    /* ── Section Base ── */
+    section { width: 100%; }
+
+    .container {
+      max-width: var(--max-w);
+      margin: 0 auto;
+      padding: 0 3rem;
+    }
+
+    /* ── Sobre Nós ── */
+    #sobre {
+      background: var(--color-cream);
+      padding: 7rem 0;
+    }
+
+    .sobre-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .sobre-img-wrap {
+      overflow: hidden;
+    }
+
+    .sobre-img-wrap img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .sobre-img-wrap:hover img { transform: scale(1.04); }
+
+    .sobre-eyebrow {
+      font-size: 0.7rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--color-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .sobre-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+      font-weight: 400;
+      line-height: 1.35;
+      margin-bottom: 2rem;
+    }
+
+    .sobre-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--color-wine);
+      margin-bottom: 2rem;
+    }
+
+    .sobre-text {
+      font-size: 0.95rem;
+      line-height: 1.85;
+      color: var(--color-muted);
+    }
+
+    /* ── Coleção ── */
+    #colecao {
+      background: var(--color-white);
+      padding: 7rem 0;
+    }
+
+    .colecao-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 2.5vw, 2.4rem);
+      font-weight: 400;
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .colecao-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .colecao-card { cursor: default; }
+
+    .colecao-card-img {
+      overflow: hidden;
+      margin-bottom: 1.25rem;
+    }
+
+    .colecao-card-img img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .colecao-card:hover .colecao-card-img img { transform: scale(1.04); }
+
+    .colecao-card-name {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.1rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .colecao-card-desc {
+      font-size: 0.88rem;
+      line-height: 1.75;
+      color: var(--color-muted);
+      max-width: 480px;
+    }
+
+    /* ── Conversa ── */
+    #conversa {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: 520px;
+    }
+
+    .conversa-img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: grayscale(1);
+      display: block;
+    }
+
+    .conversa-text {
+      background: var(--color-gold-bg);
+      padding: 5rem 4rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .conversa-eyebrow {
+      font-size: 0.65rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.7);
+      margin-bottom: 1.25rem;
+    }
+
+    .conversa-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.8rem, 2.5vw, 2.5rem);
+      font-weight: 400;
+      color: var(--color-white);
+      line-height: 1.3;
+      margin-bottom: 1.5rem;
+    }
+
+    .conversa-desc {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: rgba(255,255,255,0.85);
+    }
+
+    /* ── Manifesto ── */
+    #manifesto {
+      background: var(--color-cream);
+      padding: 7rem 0;
+    }
+
+    .manifesto-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .manifesto-quotes { display: flex; flex-direction: column; gap: 2.5rem; }
+
+    .manifesto-quote {
+      border-left: 2px solid var(--color-wine);
+      padding-left: 1.5rem;
+    }
+
+    .manifesto-quote p {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--color-text);
+    }
+
+    .manifesto-img {
+      overflow: hidden;
+    }
+
+    .manifesto-img img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .manifesto-img:hover img { transform: scale(1.04); }
+
+    /* ── Galeria ── */
+    #galeria {
+      background: var(--color-cream);
+      padding: 0 0 7rem;
+    }
+
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 2rem;
+    }
+
+    .galeria-grid-img {
+      overflow: hidden;
+    }
+
+    .galeria-grid-img img {
+      width: 100%;
+      aspect-ratio: 4/5;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .galeria-grid-img:hover img { transform: scale(1.04); }
+
+    /* ── Produto Destaque ── */
+    #produto {
+      background: var(--color-white);
+      padding: 7rem 0;
+    }
+
+    .produto-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5rem;
+      align-items: center;
+    }
+
+    .produto-img {
+      overflow: hidden;
+    }
+
+    .produto-img img {
+      width: 100%;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    .produto-img:hover img { transform: scale(1.03); }
+
+    .produto-name {
+      font-family: var(--font-serif);
+      font-size: clamp(1.6rem, 2vw, 2rem);
+      font-weight: 400;
+      margin-bottom: 1rem;
+    }
+
+    .produto-desc {
+      font-size: 0.92rem;
+      line-height: 1.8;
+      color: var(--color-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .produto-preco {
+      font-size: 0.85rem;
+      color: var(--color-muted);
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .btn-dark {
+      display: inline-block;
+      padding: 0.8rem 2.25rem;
+      border: 1px solid var(--color-text);
+      color: var(--color-text);
+      font-size: 0.8rem;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      transition: background var(--transition), color var(--transition);
+      cursor: pointer;
+    }
+
+    .btn-dark:hover {
+      background: var(--color-text);
+      color: var(--color-white);
+    }
+
+    /* ── Footer ── */
+    footer {
+      background: var(--color-gold-bg);
+      padding: 4rem 0 2.5rem;
+    }
+
+    .footer-inner {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+      padding-bottom: 3rem;
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      margin-bottom: 2rem;
+    }
+
+    .footer-logo {
+      font-family: var(--font-serif);
+      font-size: 1.5rem;
+      color: var(--color-wine);
+      margin-bottom: 0.6rem;
+    }
+
+    .footer-tagline {
+      font-size: 0.82rem;
+      color: rgba(255,255,255,0.7);
+      font-style: italic;
+    }
+
+    .footer-col-title {
+      font-size: 0.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-links { display: flex; flex-direction: column; gap: 0.6rem; }
+
+    .footer-links a {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+      transition: color var(--transition);
+    }
+
+    .footer-links a:hover { color: var(--color-white); }
+
+    .footer-contact { display: flex; flex-direction: column; gap: 0.4rem; }
+
+    .footer-contact a {
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+      transition: color var(--transition);
+    }
+
+    .footer-contact a:hover { color: var(--color-white); }
+
+    .footer-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .footer-copy {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.5);
+    }
+
+    .footer-social a {
+      font-size: 0.82rem;
+      letter-spacing: 0.05em;
+      color: rgba(255,255,255,0.65);
+      transition: color var(--transition);
+    }
+
+    .footer-social a:hover { color: var(--color-white); }
+
+    /* ── Mobile Nav Overlay ── */
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 99;
+      background: var(--color-hero);
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+    }
+
+    .nav-overlay.open { display: flex; }
+
+    .nav-overlay a {
+      font-family: var(--font-serif);
+      font-size: 2rem;
+      color: rgba(255,255,255,0.85);
+      transition: color var(--transition);
+    }
+
+    .nav-overlay a:hover { color: var(--color-white); }
+
+    .nav-overlay-close {
+      position: absolute;
+      top: 1.5rem; right: 2rem;
+      font-size: 2rem;
+      color: rgba(255,255,255,0.6);
+      cursor: pointer;
+      line-height: 1;
+    }
+
+    /* ── Responsive ── */
+    @media (max-width: 900px) {
+      header { padding: 0 1.5rem; }
+      nav { display: none; }
+      .hamburger { display: flex; }
+
+      .container { padding: 0 1.5rem; }
+
+      .hero-content { padding: 0 1.5rem; max-width: 100%; }
+      .hero-title { font-size: 1.75rem; }
+
+      #sobre, #colecao, #manifesto, #produto { padding: 5rem 0; }
+      #galeria { padding: 0 0 5rem; }
+
+      .sobre-inner,
+      .manifesto-inner,
+      .produto-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+
+      .produto-inner .produto-img { order: -1; }
+
+      .colecao-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+      #conversa { grid-template-columns: 1fr; }
+      .conversa-img { height: 300px; }
+      .conversa-text { padding: 3.5rem 1.5rem; }
+
+      .galeria-grid { grid-template-columns: 1fr; }
+
+      .footer-inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .footer-bottom { flex-direction: column; gap: 0.75rem; text-align: center; }
+    }
+
+    @media (max-width: 480px) {
+      header { height: 60px; }
+      .logo { font-size: 1.25rem; }
+      .hero-title { font-size: 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header id="header">
+    <a href="#" class="logo">ilumiluz</a>
+    <nav>
+      <a href="#colecao">Coleção</a>
+      <a href="#sobre">Sobre</a>
+      <a href="#contato">Contato</a>
+    </nav>
+    <div class="hamburger" id="hamburger" aria-label="Abrir menu">
+      <span></span><span></span><span></span>
+    </div>
+  </header>
+
+  <!-- Mobile nav overlay -->
+  <div class="nav-overlay" id="navOverlay">
+    <span class="nav-overlay-close" id="navClose">&times;</span>
+    <a href="#colecao" class="nav-link-mobile">Coleção</a>
+    <a href="#sobre" class="nav-link-mobile">Sobre</a>
+    <a href="#contato" class="nav-link-mobile">Contato</a>
+  </div>
+
+  <!-- Hero -->
+  <section id="hero">
+    <img
+      class="hero-img"
+      src="images/hero-anel-lirio.png"
+      alt="Anel com esmeralda em flor de lírio sobre pedras"
+    />
+    <div class="hero-content">
+      <p class="hero-eyebrow reveal">É a tua luz que ilumina o mundo</p>
+      <h1 class="hero-title reveal reveal-delay-1">Joias para quem<br/>vive com intenção.</h1>
+      <p class="hero-sub reveal reveal-delay-2">Design autoral, memória e matéria.</p>
+      <a href="#colecao" class="btn-outline reveal reveal-delay-3">Descobrir</a>
+    </div>
+  </section>
+
+  <!-- Sobre Nós -->
+  <section id="sobre">
+    <div class="container">
+      <div class="sobre-inner">
+        <div class="sobre-img-wrap reveal">
+          <img
+            src="images/sobre-colar-pedras.png"
+            alt="Colar de contas sobre pedras e base arredondada"
+          />
+        </div>
+        <div>
+          <p class="sobre-eyebrow reveal">Sobre Nós</p>
+          <h2 class="sobre-title reveal reveal-delay-1">A Ilumiluz nasce da união entre design autoral, memória e matéria.</h2>
+          <div class="sobre-divider reveal reveal-delay-2"></div>
+          <p class="sobre-text reveal reveal-delay-2">
+            Acreditamos que uma joia é mais do que um adorno — é design que atravessa o tempo. Mais do que um ateliê, somos um espaço de criação onde forma, precisão e significado coexistem com naturalidade. Cada projeto parte de uma escuta atenta e de um olhar apurado para proporções, texturas e materiais nobres.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nova Coleção -->
+  <section id="colecao">
+    <div class="container">
+      <h2 class="colecao-title reveal">Nova Coleção</h2>
+      <div class="colecao-grid">
+        <div class="colecao-card reveal">
+          <div class="colecao-card-img">
+            <img
+              src="images/colecao-essencial-refeito.png"
+              alt="Anel sobre antúrio branco e pedra"
+            />
+          </div>
+          <p class="colecao-card-name">O Essencial, Refeito</p>
+          <p class="colecao-card-desc">A transformação de joias é um dos pilares da Ilumiluz. Resgatamos peças esquecidas, herdadas ou que já não representam mais quem você é, e damos a elas um novo significado. O metal permanece, mas a forma e a história se transformam.</p>
+        </div>
+        <div class="colecao-card reveal reveal-delay-1">
+          <div class="colecao-card-img">
+            <img
+              src="images/colecao-joias-significado.png"
+              alt="Colar de contas multicoloridas sobre fundo azul"
+            />
+          </div>
+          <p class="colecao-card-name">Joias com significado</p>
+          <p class="colecao-card-desc">A Ilumiluz cria joias que acompanham momentos importantes da vida. Peças que não existem apenas para adornar, mas para marcar transições, guardar histórias e lembrar quem você é, ou quem está se tornando.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Tudo começa com uma conversa -->
+  <section id="conversa">
+    <img
+      class="conversa-img"
+      src="images/conversa-maos-artesao.png"
+      alt="Mãos de artesão trabalhando joias"
+    />
+    <div class="conversa-text">
+      <p class="conversa-eyebrow reveal">Sua luz que ilumina o mundo</p>
+      <h2 class="conversa-title reveal reveal-delay-1">Tudo começa com uma conversa.</h2>
+      <p class="conversa-desc reveal reveal-delay-2">Um encontro onde histórias, memórias, símbolos e intenções são compartilhados. A partir disso, desenvolvemos uma joia exclusiva, pensada para traduzir quem você é, o momento que vive e o que deseja comunicar.</p>
+    </div>
+  </section>
+
+  <!-- Manifesto / Citações -->
+  <section id="manifesto">
+    <div class="container">
+      <div class="manifesto-inner">
+        <div class="manifesto-quotes">
+          <blockquote class="manifesto-quote reveal">
+            <p>"Criamos alianças, anéis, colares e amuletos contemporâneos, feitos artesanalmente."</p>
+          </blockquote>
+          <blockquote class="manifesto-quote reveal reveal-delay-1">
+            <p>"Cada criação é uma joia que não necessariamente segue tendências, mas carrega identidade, significado e permanência."</p>
+          </blockquote>
+        </div>
+        <div class="manifesto-img reveal reveal-delay-2">
+          <img
+            src="images/manifesto-colar-folhas.png"
+            alt="Colar com elementos naturais e folhas secas"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Galeria -->
+  <section id="galeria">
+    <div class="container">
+      <div class="galeria-grid">
+        <div class="galeria-grid-img reveal">
+          <img
+            src="images/galeria-anel-botanico.png"
+            alt="Anel dourado entre folhas verdes e pedras"
+          />
+        </div>
+        <div class="galeria-grid-img reveal reveal-delay-1">
+          <img
+            src="images/galeria-brincos-triangulo.png"
+            alt="Brincos triângulo prata sobre pedras e caule azul"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Produto Destaque: Colar portal -->
+  <section id="produto">
+    <div class="container">
+      <div class="produto-inner">
+        <div class="produto-img reveal">
+          <img
+            src="images/produto-colar-portal.png"
+            alt="Colar portal em ouro 18k com esmeralda brasileira"
+          />
+        </div>
+        <div>
+          <h2 class="produto-name reveal">Colar portal</h2>
+          <p class="produto-desc reveal reveal-delay-1">Colar portal feito artesanalmente em ouro 18k contendo uma rara esmeralda brasileira.</p>
+          <p class="produto-preco reveal reveal-delay-1">Preço sob consulta.</p>
+          <a
+            class="btn-dark reveal reveal-delay-2"
+            href="https://wa.me/5511975155235?text=Ol%C3%A1%2C%20tenho%20interesse%20no%20Colar%20Portal%20em%20ouro%2018k%20com%20esmeralda.%20Poderia%20me%20passar%20mais%20informa%C3%A7%C3%B5es%3F"
+            target="_blank"
+            rel="noopener"
+          >Consultar via WhatsApp</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer id="contato">
+    <div class="container">
+      <div class="footer-inner">
+        <div>
+          <p class="footer-logo">ilumiluz</p>
+          <p class="footer-tagline">Joias autorais que atravessam o tempo</p>
+        </div>
+        <div>
+          <p class="footer-col-title">Navegação</p>
+          <div class="footer-links">
+            <a href="#colecao">Coleção</a>
+            <a href="#sobre">Sobre</a>
+            <a href="#contato">Contato</a>
+          </div>
+        </div>
+        <div>
+          <p class="footer-col-title">Contato</p>
+          <div class="footer-contact">
+            <a href="https://ilumiluz.com">ilumiluz.com</a>
+            <a href="tel:+5511975155235">+55 11 97515-5235</a>
+            <a
+              href="https://wa.me/5511975155235"
+              target="_blank"
+              rel="noopener"
+            >WhatsApp</a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copy">© 2026 Ilumiluz. Todos os direitos reservados.</p>
+        <div class="footer-social">
+          <a href="https://instagram.com" target="_blank" rel="noopener">Instagram</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    // Header scroll effect
+    const header = document.getElementById('header');
+    window.addEventListener('scroll', () => {
+      header.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+
+    // Mobile menu
+    const hamburger = document.getElementById('hamburger');
+    const navOverlay = document.getElementById('navOverlay');
+    const navClose = document.getElementById('navClose');
+
+    hamburger.addEventListener('click', () => navOverlay.classList.add('open'));
+    navClose.addEventListener('click', () => navOverlay.classList.remove('open'));
+
+    document.querySelectorAll('.nav-link-mobile').forEach(link => {
+      link.addEventListener('click', () => navOverlay.classList.remove('open'));
+    });
+
+    // Scroll reveal
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealObserver.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    document.querySelectorAll('.reveal').forEach(el => revealObserver.observe(el));
+  </script>
+</body>
+</html>
